@@ -30,7 +30,21 @@ try{
 //        $sql = "delete from about where id=4";
 //        $res = $db->exec($sql);
 //        print_r($res);die;
-
+//      绑定参数    如果sql'语句中用的是？号作为占位符，那么在bindParam参数中，第一个参数就以占位符的顺序填写，比如1代表第一个？号的值
+//        $obj	= $db->prepare("select * from about where id = ?");
+//        $id	 = 3;
+//        $obj->bindParam(1,$id,PDO::PARAM_INT);
+//        $obj->execute();
+//        $result = $obj->fetchALL(PDO::FETCH_ASSOC);
+//        var_dump($result);
+//      绑定参数   如果sql语句中用的是 " :变量名  "作为占位符，那么bingParam参数中，第一个参数就是“ :变量名 ”
+//      bindParam函数：par1，占位符标识，par2：值（必须以变量形式体现，否则报：Cannot pass parameter 2），par3：值的模式
+        $obj	= $db->prepare("select * from about where id = :id");
+        $id	 = 3;
+        $obj->bindParam(':id',$id,PDO::PARAM_INT);
+        $obj->execute();
+        $result = $obj->fetchALL(PDO::FETCH_ASSOC);
+        var_dump($result);
 }catch (PDOException  $e){
     print "Error is:".$e->getMessage()."<br/>";
 }
