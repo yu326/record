@@ -13,6 +13,8 @@
 try{
     $dsn = "mysql:host=localhost;dbname=yu";
     $db = new PDO($dsn, 'root', 'root');
+    //关闭自动提交
+    $db->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
 
 //   查询操作  select
 //        $rs = $db->query("SELECT * FROM about");
@@ -39,12 +41,20 @@ try{
 //        var_dump($result);
 //      绑定参数   如果sql语句中用的是 " :变量名  "作为占位符，那么bingParam参数中，第一个参数就是“ :变量名 ”
 //      bindParam函数：par1，占位符标识，par2：值（必须以变量形式体现，否则报：Cannot pass parameter 2），par3：值的模式
-        $obj	= $db->prepare("select * from about where id = :id");
-        $id	 = 3;
-        $obj->bindParam(':id',$id,PDO::PARAM_INT);
-        $obj->execute();
-        $result = $obj->fetchALL(PDO::FETCH_ASSOC);
-        var_dump($result);
+//        $obj = $db->prepare("select * from about where id = :id");
+//        $id	 = 3;
+//        $obj->bindParam(':id',$id,PDO::PARAM_INT);
+//        $obj->execute();
+//        $result = $obj->fetchALL(PDO::FETCH_ASSOC);
+//        var_dump($result);
+//       事务
+        $db->beginTransaction();
+        $sql = "update about set picture='643' where id=5";
+        $res = $db->exec($sql);
+        echo $res;
+//        $db->rollBack();
+//    die;
+        $db->commit();
 }catch (PDOException  $e){
     print "Error is:".$e->getMessage()."<br/>";
 }
