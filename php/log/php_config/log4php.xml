@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://logging.apache.org/log4php/">
+
+    <appender name="suixin" class="LoggerAppenderRollingFile">
+        <layout class="LoggerLayoutTTCC"/>
+        <param name="file" value="Z:/lamp/apache/Apache24/htdocs/gitRecord/php/log/logs/suixin/suixin.log"/>
+        <param name="maxBackupIndex" value="100"/>
+    </appender>
+    <logger name="suixin">
+        <level value="debug"/>
+        <appender_ref ref="suixin"/>
+    </logger>
+
+</configuration>
